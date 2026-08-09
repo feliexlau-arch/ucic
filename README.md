@@ -1,20 +1,23 @@
 # Train Ticket System
 
-A simple and beginner-friendly train ticket booking system written in Python.
+A small Python program for managing train tickets in the terminal.
 
 ## Features
 
-- View available trains and remaining tickets
-- Buy tickets
-- Exit the system
+- View available trains and remaining seats
+- Buy tickets and record reservations
+- Search trains by number or route keyword
+- Add tickets to restock a train
+- Cancel part or all of a reservation
+- Show a summary report of current trains and reservations
 
-## How to run
+## Run
 
 ```bash
 python train_ticket_system.py
 ```
 
-## Project structure
+## Files
 
 - `train_ticket_system.py` - Main program
 - `README.md` - Project description
@@ -23,4 +26,4 @@ python train_ticket_system.py
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+MIT License. See [LICENSE](LICENSE) for details.
