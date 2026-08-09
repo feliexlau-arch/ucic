@@ -15,7 +15,8 @@ def show_menu():
     print("3. Search by train or route")
     print("4. Add tickets (restock)")
     print("5. Cancel reservation")
-    print("6. Exit")
+    print("6. Show summary report")
+    print("7. Exit")
     print("===============================")
 
 
@@ -136,33 +137,62 @@ def cancel_reservation(tickets, reservations):
         reservations.pop(num - 1)
 
 
+def show_summary_report(tickets, reservations):
+    print("\n===== Summary Report =====")
+    show_tickets(tickets)
+    if reservations:
+        print("\nCurrent reservations:")
+        total_tickets = 0
+        total_spent = 0
+        for r in reservations:
+            subtotal = r['price'] * r['count']
+            total_tickets += r['count']
+            total_spent += subtotal
+            print(f"- {r['train']}  Route: {r['route']}  Count: {r['count']}  Subtotal: {subtotal}")
+        print(f"\nTotal reserved tickets: {total_tickets}")
+        print(f"Total price of reserved tickets: {total_spent}")
+    else:
+        print("\nNo current reservations.")
+    print("==========================")
+
+
+def process_choice(choice, tickets, reservations):
+    if choice == "1":
+        show_tickets(tickets)
+    elif choice == "2":
+        buy_ticket(tickets, reservations)
+    elif choice == "3":
+        search_tickets(tickets)
+    elif choice == "4":
+        add_tickets(tickets)
+    elif choice == "5":
+        cancel_reservation(tickets, reservations)
+    elif choice == "6":
+        show_summary_report(tickets, reservations)
+    elif choice == "7":
+        print("Goodbye!")
+        show_summary_report(tickets, reservations)
+        return False
+    else:
+        print("Invalid choice.")
+    input("\nPress Enter to continue...")
+    return True
+
+
 def main():
     tickets = [
-        {"train": "G101", "route": "Beijing - Shanghai", "price": 199, "remaining": 10},
-        {"train": "D202", "route": "Guangzhou - Shenzhen", "price": 88, "remaining": 15},
-        {"train": "T303", "route": "Chengdu - Chongqing", "price": 55, "remaining": 8},
+        {"train": "LOL-007", "route": "Panda City - Dragon Village", "price": 199, "remaining": 10},
+        {"train": "XD-404", "route": "Noodle Town - Dumpling Island", "price": 88, "remaining": 15},
+        {"train": "WTF-911", "route": "Kung Fu Temple - Snack Street", "price": 55, "remaining": 8},
+        {"train": "OMG-666", "route": "Sleepy Hollow - Party Mountain", "price": 120, "remaining": 12},
+        {"train": "Zzz-1000", "route": "Lazy River - Dreamland", "price": 65, "remaining": 20},
+        {"train": "GG-999", "route": "Bubble Town - Unicorn Ranch", "price": 45, "remaining": 18},
     ]
     reservations = []
     print("Welcome to the simple train ticket system!")
-    while True:
+    show_menu()
+    while process_choice(input("Choose option (1-7): ").strip(), tickets, reservations):
         show_menu()
-        choice = input("Choose option (1-6): ").strip()
-        if choice == "1":
-            show_tickets(tickets)
-        elif choice == "2":
-            buy_ticket(tickets, reservations)
-        elif choice == "3":
-            search_tickets(tickets)
-        elif choice == "4":
-            add_tickets(tickets)
-        elif choice == "5":
-            cancel_reservation(tickets, reservations)
-        elif choice == "6":
-            print("Goodbye!")
-            break
-        else:
-            print("Invalid choice.")
-        input("\nPress Enter to continue...")
 
 
 if __name__ == "__main__":
