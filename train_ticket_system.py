@@ -13,10 +13,9 @@ def show_menu():
     print("1. View available tickets")
     print("2. Buy a ticket")
     print("3. Search by train or route")
-    print("4. Add tickets (restock)")
-    print("5. Cancel reservation")
-    print("6. Show summary report")
-    print("7. Exit")
+    print("4. Cancel reservation")
+    print("5. Show summary report")
+    print("6. Exit")
     print("===============================")
 
 
@@ -79,27 +78,6 @@ def search_tickets(tickets):
     for i, t in found:
         print(f"{i}. {t['train']}  Route: {t['route']}  Price: {t['price']}  Remaining: {t['remaining']}")
 
-
-def add_tickets(tickets):
-    show_tickets(tickets)
-    choice = input("Enter train index to add tickets: ").strip()
-    if not choice.isdigit():
-        print("Invalid input.")
-        return
-    idx = int(choice) - 1
-    if idx < 0 or idx >= len(tickets):
-        print("Index out of range.")
-        return
-    cnt = input("How many tickets to add: ").strip()
-    if not cnt.isdigit():
-        print("Invalid input.")
-        return
-    cnt = int(cnt)
-    if cnt <= 0:
-        print("Must add at least 1 ticket.")
-        return
-    tickets[idx]['remaining'] += cnt
-    print(f"Added {cnt} tickets to {tickets[idx]['train']}. Now {tickets[idx]['remaining']} remaining.")
 
 
 def cancel_reservation(tickets, reservations):
@@ -164,12 +142,10 @@ def process_choice(choice, tickets, reservations):
     elif choice == "3":
         search_tickets(tickets)
     elif choice == "4":
-        add_tickets(tickets)
-    elif choice == "5":
         cancel_reservation(tickets, reservations)
-    elif choice == "6":
+    elif choice == "5":
         show_summary_report(tickets, reservations)
-    elif choice == "7":
+    elif choice == "6":
         print("Goodbye!")
         show_summary_report(tickets, reservations)
         return False
@@ -181,17 +157,17 @@ def process_choice(choice, tickets, reservations):
 
 def main():
     tickets = [
-        {"train": "LOL-007", "route": "Panda City - Dragon Village", "price": 199, "remaining": 10},
-        {"train": "XD-404", "route": "Noodle Town - Dumpling Island", "price": 88, "remaining": 15},
-        {"train": "WTF-911", "route": "Kung Fu Temple - Snack Street", "price": 55, "remaining": 8},
-        {"train": "OMG-666", "route": "Sleepy Hollow - Party Mountain", "price": 120, "remaining": 12},
-        {"train": "Zzz-1000", "route": "Lazy River - Dreamland", "price": 65, "remaining": 20},
-        {"train": "GG-999", "route": "Bubble Town - Unicorn Ranch", "price": 45, "remaining": 18},
+        {"train": "LOL-007", "route": "Kabul - New York", "price": 199, "remaining": 10},
+        {"train": "XD-404", "route": "Beijing - Los Angeles", "price": 88, "remaining": 15},
+        {"train": "WTF-911", "route": "Istanbul - Dubai", "price": 55, "remaining": 8},
+        {"train": "OMG-666", "route": "Moscow - Rio de Janeiro", "price": 120, "remaining": 12},
+        {"train": "Zzz-1000", "route": "Lagos - Sydney", "price": 65, "remaining": 20},
+        {"train": "GG-999", "route": "Cairo - San Francisco", "price": 45, "remaining": 18},
     ]
     reservations = []
     print("Welcome to the simple train ticket system!")
     show_menu()
-    while process_choice(input("Choose option (1-7): ").strip(), tickets, reservations):
+    while process_choice(input("Choose option (1-6): ").strip(), tickets, reservations):
         show_menu()
 
 
