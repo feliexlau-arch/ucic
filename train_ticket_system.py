@@ -12,8 +12,8 @@ def show_menu():
     print("\n===== Train Ticket System =====")
     print("1. View available tickets")
     print("2. Buy a ticket")
-    print("3. Search by train or route")
-    print("4. Cancel reservation")
+    print("3. Cancel reservation")
+    print("4. Search by train or route")
     print("5. Show summary report")
     print("6. Exit")
     print("===============================")
@@ -62,24 +62,6 @@ def buy_ticket(tickets, reservations):
     print(f"Bought {cnt} ticket(s) for {t['train']}. Total: {total}.")
 
 
-def search_tickets(tickets):
-    key = input("Enter train number or route keyword: ").strip().lower()
-    if key == "":
-        print("Empty keyword.")
-        return
-    found = []
-    for i, t in enumerate(tickets, start=1):
-        if key in t['train'].lower() or key in t['route'].lower():
-            found.append((i, t))
-    if not found:
-        print("No matches.")
-        return
-    print("\nSearch results:")
-    for i, t in found:
-        print(f"{i}. {t['train']}  Route: {t['route']}  Price: {t['price']}  Remaining: {t['remaining']}")
-
-
-
 def cancel_reservation(tickets, reservations):
     if not reservations:
         print("No reservations to cancel.")
@@ -115,6 +97,23 @@ def cancel_reservation(tickets, reservations):
         reservations.pop(num - 1)
 
 
+def search_tickets(tickets):
+    key = input("Enter train number or route keyword: ").strip().lower()
+    if key == "":
+        print("Empty keyword.")
+        return
+    found = []
+    for i, t in enumerate(tickets, start=1):
+        if key in t['train'].lower() or key in t['route'].lower():
+            found.append((i, t))
+    if not found:
+        print("No matches.")
+        return
+    print("\nSearch results:")
+    for i, t in found:
+        print(f"{i}. {t['train']}  Route: {t['route']}  Price: {t['price']}  Remaining: {t['remaining']}")
+
+
 def show_summary_report(tickets, reservations):
     print("\n===== Summary Report =====")
     show_tickets(tickets)
@@ -140,9 +139,9 @@ def process_choice(choice, tickets, reservations):
     elif choice == "2":
         buy_ticket(tickets, reservations)
     elif choice == "3":
-        search_tickets(tickets)
-    elif choice == "4":
         cancel_reservation(tickets, reservations)
+    elif choice == "4":
+        search_tickets(tickets)
     elif choice == "5":
         show_summary_report(tickets, reservations)
     elif choice == "6":
